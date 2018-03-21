@@ -1,0 +1,12 @@
+# based on https://gist.github.com/darkarcher117/60a6474d5fbb1632afd9
+
+*.rpy[bc]
+*.rpym[bc]
+/errors.txt
+/log.txt
+/project.json
+/traceback.txt
+/game/saves
+
+# Sublime Text
+*.sublime-workspace
