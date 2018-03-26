@@ -1,0 +1,32 @@
+{
+	"folders":
+	[
+		{
+			"path": "/home/wing/Projects/Ren'Py/toy-fair"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "Play",
+			"cmd":
+			[
+				"renpy.sh",
+				"${project_path}"
+			],
+			"variants":
+			[
+				{
+					"cmd":
+					[
+						"renpy.sh",
+						"${project_path}",
+						"--warp",
+						"scenes/s01_the_quarrel.rpy:4"
+					],
+					"name": "Play from S01: The Quarrel - Intro"
+				}
+			]
+		}
+	],
+}

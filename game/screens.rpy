@@ -82,6 +82,21 @@ style frame:
 ################################################################################
 
 
+## Illust Frame screen ##################################################################
+##
+## The illust frame screen is used to frame background illustrations
+
+screen illustframe(picture):
+    style_prefix "illustframe"
+
+    frame at letterbox:
+        background Frame("images/frame-pixabay.png", 20, 20)
+        image picture
+
+style illustframe_frame:
+    padding (20, 20)
+
+
 ## Say screen ##################################################################
 ##
 ## The say screen is used to display dialogue to the player. It takes two
@@ -1507,8 +1522,3 @@ style slider_pref_vbox:
 style slider_pref_slider:
     variant "small"
     xsize 600
-
-
-
-
-
