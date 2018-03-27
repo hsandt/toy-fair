@@ -20,12 +20,19 @@ image red = Solid("#ff0000")
 image stage station = im.Scale("station_a.jpg", 790, 474)
 image stage sky = im.Scale("sky_dousetsu.jpg", 790, 474)
 
+# Audio
+
+# BGM
+define audio.toyshop = "music/Carpe Diem.mp3"
+define audio.conflict = "music/Thinking Music.mp3"
+
 label s01:
     jump .intro
 
 label .intro:
     scene bg white
     showd screen illustframe("bg toyshop")
+    play music toyshop
     $ renpy.pause(0.5)
     shows mc at 0 0
     "Enter"
@@ -38,6 +45,8 @@ label .intro:
     hides lady
     $ renpy.pause(0.5)
     hided screen illustframe
+    stop music fadeout 1.0
     $ renpy.pause(0.5)
     showd screen illustframe("stage sky")
+    play music conflict
     'Seppel looked at the sky, and said, "Hurray!"'
