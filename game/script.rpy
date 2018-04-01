@@ -6,7 +6,7 @@
     config.intra_transition = dissolve
 
 label start:
-    show screen _image_load_log
+    # show screen _image_load_log
 
     jump s01
     return

@@ -22,7 +22,7 @@
 						"renpy.sh",
 						"${project_path}",
 						"--warp",
-						"scenes/s01_the_quarrel.rpy:4"
+						"scenes/s01_the_quarrel.rpy:71"
 					],
 					"name": "Play from S01: The Quarrel - Intro"
 				}

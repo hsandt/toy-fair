@@ -7,12 +7,16 @@ python early:
         # Parse the list of arguments.
         arguments = renpy.parser.parse_arguments(l)
 
+        duration = 1.0
         predict = True
         transition_expr = None
 
         while True:
 
-            if l.keyword('nopredict'):
+            if l.keyword('during'):
+                duration = l.require(l.simple_expression)
+
+            elif l.keyword('nopredict'):
                 predict = False
 
             elif l.keyword('with'):
@@ -23,14 +27,19 @@ python early:
 
         l.expect_eol()
 
-        return dict(name=name, arguments=arguments, predict=predict, transition_expr=transition_expr)
+        return dict(name=name, arguments=arguments, duration=duration, predict=predict, transition_expr=transition_expr)
 
     def parse_hided_screen(l):
         name = l.require(l.name)
 
+        duration = 0.5
+
+        if l.keyword('during'):
+            duration = l.require(l.simple_expression)
+
         l.expect_eol()
 
-        return dict(name=name)
+        return dict(name=name, duration=duration)
 
     def predict_screen(p):
 
@@ -57,6 +66,7 @@ python early:
 
         name = p["name"]
         a = p["arguments"]
+        duration = float(p["duration"])
 
         if a is not None:
             args, kwargs = a.evaluate()
@@ -64,13 +74,14 @@ python early:
             args = [ ]
             kwargs = { }
 
-        renpy.transition(dissolve)
+        renpy.transition(Dissolve(duration))
         renpy.show_screen(name, *args, **kwargs)
 
     def execute_hided_screen(p):
         name = p["name"]
+        duration = float(p["duration"])
 
-        renpy.transition(dissolve)
+        renpy.transition(Dissolve(duration))
         renpy.hide_screen(name)
 
     def lint_screen(p):
@@ -94,57 +105,86 @@ python early:
 
 
     def parse_show_sprite(l):
-        # Parse a name.
-        name = l.require(l.name)
+        # Parse a name using the advanced methods used in show_statement
+        # We must adapt the code as show_statement really executes, and we only want to parse
+        # It's not possible to catch the ATL block like show_statement because ':' is ignored by this lexer
+        # parse_image_specifier returns a tuple for the name components, but seems to work
+        # In addition, everything before keywords is included in the image name so you cannot
+        # use a custom keyword if you use this. That's why we hack around at to specify a relative position
+        imspec = renpy.parser.parse_image_specifier(l)
 
-        while True:
-            if l.keyword('at'):
-                # Parse the relative coordinates.
-                x = l.require(l.simple_expression)
-                y = l.require(l.simple_expression)
-                l.expect_eol()
-                break
+        # We exploit at, always considering the 1st argument as relative coordinates, if any
+        image_name, expression, tag, at_list, layer, zorder, behind = imspec
+        if at_list:
+            # Convert to screen coordinates (caution: we manipulate strings)
+            xy = eval(at_list[0])
+            if type(xy) is tuple and len(xy) == 2:
+                x, y = xy
             else:
-                # Name has more words, get them all
-                name += ' ' + l.require(l.name)
+                l.error("expected tuple of length 2.")
+            at_list[0] = "inside_letterbox({}, {})".format(x, y)  # will be evaluated
+        else:
+            at_list = ["inside_letterbox(0, 0)"]
+        imspec = image_name, expression, tag, at_list, layer, zorder, behind
 
+        duration = 0.5
+        x, y = 0, 0
 
-        return dict(name=name, x=x, y=y, predict=True)
-
-    def parse_hide_sprite(l):
-        # Parse a name.
-        name = l.require(l.name)
+        # during must be placed after standard specifiers
+        if l.keyword('during'):
+            duration = l.require(l.simple_expression)
 
         l.expect_eol()
 
-        return dict(name=name)
+        return dict(imspec=imspec, duration=duration, predict=True)
+
+    def parse_hide_sprite(l):
+        # Parse full image name for compatibility with hide (but only the tag, the 1st component, matters)
+        image_name = l.require(l.name)
+
+        duration = 0.5
+
+        if l.keyword('during'):
+            duration = l.require(l.simple_expression)
+
+        l.expect_eol()
+
+        return dict(name=image_name, duration=duration)
 
     def predict_sprite(p):
         if not config.predict_screen_statements:
             return
+
+        # we could use predict_imspec(p["imspec"]) which does the prediction job
+        # and return None, but returning just the name also works
 
         predict = p.get("predict", False)
 
         if not predict:
             return
 
-        name = p["name"]
-        x = int(p["x"])
-        y = int(p["y"])
-        at_list = [inside_letterbox(x,y)]
+        imspec = p["imspec"]
+        name = imspec[0]
 
         return [name]
 
     def execute_show_sprite(p):
-        name = p["name"]
-        x = int(p["x"])
-        y = int(p["y"])
-        at_list = [inside_letterbox(x, y)]
+        imspec = p["imspec"]
+        duration = float(p["duration"])
 
-        renpy.show(name, at_list=at_list, layer="screens")
+        name, expression, tag, at_list, _, zorder, behind = imspec
+
+        # override layer to "screens" (don't provide a layer when using "shows")
+        imspec = name, expression, tag, at_list, "screens", zorder, behind
+
+        renpy.transition(Dissolve(duration))
+        renpy.ast.show_imspec(imspec)
 
     def execute_hide_sprite(p):
         name = p["name"]
+        duration = float(p["duration"])
+
+        renpy.transition(Dissolve(duration))
         renpy.hide(name, layer="screens")
 
     # Shows a sprite inside the letterbox, in relative coordinates
