@@ -2,6 +2,7 @@
 
 *.rpy[bc]
 *.rpym[bc]
+*.bak
 /errors.txt
 /log.txt
 /project.json

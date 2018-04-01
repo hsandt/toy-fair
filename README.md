@@ -21,3 +21,5 @@ A Visual Novel for NaNoRenO 2018 made with Ren'Py
 freesound.org
 
 * y.t. - Spinning Top (raw, unfiltered) (CC-0)
+* InspectorJ - Bell, Candle Damper, A (H4n).wav - trimmed (Attribution)
+* Mikirog - Bottle hitting a table (CC-0)

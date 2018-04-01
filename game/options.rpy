@@ -12,7 +12,7 @@
 ##
 ## The _() surrounding the string marks it as eligible for translation.
 
-define config.name = _("toy-fair")
+define config.name = _("Josef and the Toy Fair")
 
 
 ## Determines if the title given above is shown on the main menu screen. Set
@@ -23,13 +23,49 @@ define gui.show_name = True
 
 ## The version of the game.
 
-define config.version = "1.0"
+define config.version = "0.1"
 
 
 ## Text that is placed on the game's about screen. Place the text between the
 ## triple-quotes, and leave a blank line between paragraphs.
 
 define gui.about = _p("""
+A Visual Novel made for NaNoRenO 2018.
+
+{b}Story{/b}
+
+hsandt
+
+{b}Graphics{/b}
+
+HyaKkiDouR4n, hsandt
+
+{b}Free assets{/b}
+
+{u}Graphics{/u}
+
+Pixabay (Frame)
+
+{u}Music{/u}
+
+Kevin MacLeod (incompetech.com)
+
+"Carpe Diem", "Thinking Music"
+
+Licensed under Creative Commons: By Attribution 3.0
+
+http://creativecommons.org/licenses/by/3.0/
+
+{u}SFX{/u}
+
+freesound.org
+
+y.t. - Spinning Top (raw, unfiltered) (CC-0)
+
+InspectorJ - Bell, Candle Damper, A (H4n).wav - trimmed (Attribution)
+
+Mikirog - Bottle hitting a table (CC-0)
+
 """)
 
 
@@ -47,7 +83,7 @@ define build.name = "toy-fair"
 
 define config.has_sound = True
 define config.has_music = True
-define config.has_voice = True
+define config.has_voice = False
 
 
 ## To allow the user to play a test sound on the sound or voice channel,

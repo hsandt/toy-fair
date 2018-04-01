@@ -912,16 +912,6 @@ screen history():
                 has fixed:
                     yfit True
 
-                if h.who:
-
-                    label h.who:
-                        style "history_name"
-
-                        ## Take the color of the who text from the Character, if
-                        ## set.
-                        if "color" in h.who_args:
-                            text_color h.who_args["color"]
-
                 $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
                 text what
 
@@ -936,10 +926,6 @@ define gui.history_allow_tags = set()
 
 style history_window is empty
 
-style history_name is gui_label
-style history_name_text is gui_label_text
-style history_text is gui_text
-
 style history_text is gui_text
 
 style history_label is gui_label
@@ -948,16 +934,6 @@ style history_label_text is gui_label_text
 style history_window:
     xfill True
     ysize gui.history_height
-
-style history_name:
-    xpos gui.history_name_xpos
-    xanchor gui.history_name_xalign
-    ypos gui.history_name_ypos
-    xsize gui.history_name_width
-
-style history_name_text:
-    min_width gui.history_name_width
-    text_align gui.history_name_xalign
 
 style history_text:
     xpos gui.history_text_xpos
@@ -1124,7 +1100,7 @@ style help_button_text:
     properties gui.button_text_properties("help_button")
 
 style help_label:
-    xsize 250
+    xsize 150
     right_padding 20
 
 style help_label_text:

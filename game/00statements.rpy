@@ -111,6 +111,7 @@ python early:
         # parse_image_specifier returns a tuple for the name components, but seems to work
         # In addition, everything before keywords is included in the image name so you cannot
         # use a custom keyword if you use this. That's why we hack around at to specify a relative position
+        # And for "during", you need to add at least one keyword before. We recommend "at ()" to distinguish from "at (0, 0)"
         imspec = renpy.parser.parse_image_specifier(l)
 
         # We exploit at, always considering the 1st argument as relative coordinates, if any
@@ -118,13 +119,20 @@ python early:
         if at_list:
             # Convert to screen coordinates (caution: we manipulate strings)
             xy = eval(at_list[0])
-            if type(xy) is tuple and len(xy) == 2:
-                x, y = xy
+            if type(xy) is tuple:
+                if len(xy) == 2:
+                    x, y = xy
+                    at_list[0] = "inside_letterbox({}, {})".format(x, y)  # will be evaluated
+                elif len(xy) == 0:
+                    # "at ()" is just a separator to use "during", do nothing to preserve previous position
+                    # so len 0 is OK, but we need to remove it because it's not a transform
+                    at_list.pop(0)
+                else:
+                    l.error("expected tuple of length 2 or 0.")
             else:
-                l.error("expected tuple of length 2.")
-            at_list[0] = "inside_letterbox({}, {})".format(x, y)  # will be evaluated
-        else:
-            at_list = ["inside_letterbox(0, 0)"]
+                l.error("expected tuple.")
+        # we don't default to (0, 0) so we can keep the position of the previous sprite
+        # with the same tag, so don't forget to initialize centered sprites at (0, 0)
         imspec = image_name, expression, tag, at_list, layer, zorder, behind
 
         duration = 0.5
@@ -177,6 +185,7 @@ python early:
         # override layer to "screens" (don't provide a layer when using "shows")
         imspec = name, expression, tag, at_list, "screens", zorder, behind
 
+        # Warning: transitions will apply to anything displayed on screen during that period
         renpy.transition(Dissolve(duration))
         renpy.ast.show_imspec(imspec)
 
