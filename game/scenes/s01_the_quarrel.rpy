@@ -1,67 +1,10 @@
-# Images
-
-# GUI
-# It would be nice to have a CTC (click-to-continue) icon for all text,
-# but I'd need to override the default adv character or to create
-# a fictive character with ctc and put its name in front of each and every text.
-
-# Full background
-image fbg day = Solid("#fefef8")  # paper white
-image fbg sunset = Solid("#fad6a5")  # sunset
-
-# Background frame
-image frame = Frame("images/frame-pixabay.png", 20, 20)
-
-# Backgrounds (790x474)
-image bg toyshop day = "images/bg/toyshop_day.png"
-image bg toyshop evening = "images/bg/toyshop_evening.png"
-
-# CG (790x474)
-image cg top = "images/cg/top.png"
-
-# Characters
-image mc = "char/mc_stand.png"
-image mc bust = "images/char/mc_bust.png"
-image mc bust smile= "images/char/mc_bust_smile.png"
-image mc_hand_right = "images/char/mc_hand_right.png"
-image mc_hand_left = "images/char/mc_hand_right.png"  # cheat
-image lady = "images/char/lady_stand.png"
-image lady look = "images/char/lady_stand_look_around.png"
-image uncle bust = "images/char/uncle_bust.png"
-
-# Item
-image top spinning = "item/top_spinning.png"
-image top stopped = "item/top_stopped.png"
-image ledger = "item/ledger.png"  # unused
-image cursed_knight_original = "item/cursed_knight_ori.png"
-
-# FX
-image focus ellipse = "images/fx/focus_ellipse.png"
-image focus smog = "images/fx/focus_smog.png"
-image fx_shout = "images/fx/shout.png"
-
-# Debug
-image blackpx = im.Scale("black_background.png", 10, 10)
-image red = Solid("#ff0000")
-image stage sky = im.Scale("bg/sky_dousetsu.jpg", 790, 474)
-
-# Audio
-
-# BGM
-define audio.toyshop = "music/Carpe Diem.mp3"
-define audio.conflict = "music/Thinking Music.mp3"
-
-# SFX
-define audio.spinning_top = "sfx/spinning_top_raw.mp3"
-define audio.chime = "sfx/chime_trimmed.wav"
-define audio.hit_table = "sfx/bottle-hitting-a-table.wav"
-
 label s01:
     jump .intro
 
     # debug
-    scene fbg day
-    jump .focus
+    scene fbg sunset
+    showd screen illustframe("bg toyshop day")
+    jump .end
 
 label .intro:
     scene fbg day
@@ -83,9 +26,9 @@ label .focus:
     shows mc bust behind a at (0, 5)
     shows top spinning at (45, 28)
     $ renpy.pause(1.0)
-    "Josef was staring at the toy, hypnotized.
+    "Josef was staring at the toy, as hypnotized.
     {w}He stopped expecting anything more from it a moment ago,
-    but he couldn't look away."
+    but couldn't look away."
 
 label .lady:
     play sound chime
@@ -93,7 +36,7 @@ label .lady:
     hides focus
     shows lady behind focus at (-160, 90)
     $ renpy.pause(1.0)
-    "A woman entered and stared at the shelves, seemingly unsatisfied.
+    "A lady entered and started looking at the shelves.
     {w=0.5}Josef remained focused on the spinning object."
     pause 1.0
 
@@ -105,7 +48,7 @@ label .shout:
     hides fx_shout during 0.
 
 label .welcome:
-    "Sepp stopped the top with his hand.\n"
+    "Josef stopped the top with his hand.\n"
     shows mc_hand_left at (45, 25) during 0.
     shows top stopped at (45, 32) during 0.
     shows mc bust smile at () during 0.
@@ -117,12 +60,12 @@ label .welcome:
     {p=1.0}‘I'm looking for a Cursed Knight. {w=1.0}The one with the
     horse.’"
     shows mc bust at () during 0.
-    "Sepp sighed.
+    "Josef sighed.
     {p=1.0}‘My apologies. We don't sell this item.’"
 
 label .disappointment:
     "‘Oh, {w=1.0}of course.’
-    {p=0.5}‘That said,’ Josef continued, ‘there is a Toy Fair in the Eastern city tomorrow.
+    {p=0.5}‘That said,’ Josef continued, ‘there is a {b}Toy Fair{/b} in the {b}Eastern city{/b} tomorrow.
     {w=0.5}You may find what you want there.’"
     "‘Ah, thank you.’
     {p=0.5}She awkwardly glanced at the shelves again."
@@ -182,8 +125,10 @@ label .cursed_knight:
     {w=0.5}He was banned from the very kingdom he protected because he was deemed too dangerous,
     yet continues fighting for its people.{/i}"
     "But Josef wasn't nostalgic. {w=0.5}It was now time to go and see what was made in the real world."
+    hides mc
+    hides cursed_knight_original
+    hided screen illustframe
+    $ renpy.pause(2.0)
 
 label .end:
-    "END OF SCENE 1"
-    "‘hello’"
-    # jump s02
+    jump s02

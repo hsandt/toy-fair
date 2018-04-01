@@ -7,7 +7,7 @@ A Visual Novel for NaNoRenO 2018 made with Ren'Py
 ## Pictures
 
 * Pixabay (Frame)
-* 背景協力：ペタン　等 (Sky)
+* 背景協力：ペタン　等 (Sky, unused)
 
 ## Music
 
