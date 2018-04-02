@@ -9,9 +9,6 @@
 image fbg day = Solid("#fefef8")  # paper white
 image fbg sunset = Solid("#fad6a5")  # sunset
 
-# Background frame
-image frame = Frame("images/frame-pixabay.png", 20, 20)
-
 # Backgrounds (790x474)
 image bg toyshop day = "images/bg/toyshop_day.png"
 image bg toyshop evening = "images/bg/toyshop_evening.png"
@@ -32,6 +29,8 @@ image mc_hand_left = "images/char/mc_hand_right.png"  # cheat
 image lady = "images/char/lady_stand.png"
 image lady look = "images/char/lady_stand_look_around.png"
 image uncle bust = "images/char/uncle_bust.png"
+image uncle bust pick = "images/char/uncle_bust_pick.png"
+image uncle bust showing = "images/char/uncle_bust_show.png"
 image nadia bust big = "images/char/nadia_bust_big.png"
 
 # Item
@@ -58,8 +57,10 @@ image stage sky = im.Scale("bg/sky_dousetsu.jpg", 790, 474)
 # BGM
 define audio.toyshop = "music/Carpe Diem.mp3"
 define audio.conflict = "music/Thinking Music.mp3"
+define audio.toyfair = "music/Zazie.mp3"
 
 # SFX
-define audio.spinning_top = "sfx/spinning_top_raw.mp3"
+define audio.spinning_top = "<loop 5.036>sfx/spinning_top_intro-loop_low.wav"
 define audio.chime = "sfx/chime_trimmed.wav"
 define audio.hit_table = "sfx/bottle-hitting-a-table.wav"
+define audio.stagecoach = "sfx/se-horse-wagon_16bit.wav"

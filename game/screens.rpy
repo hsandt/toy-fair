@@ -90,7 +90,7 @@ screen illustframe(picture):
     style_prefix "illustframe"
 
     frame at letterbox:
-        background Frame("images/frame-pixabay.png", 20, 20)
+        background Frame("images/frame.png", 20, 20)
         image picture
 
 style illustframe_frame:

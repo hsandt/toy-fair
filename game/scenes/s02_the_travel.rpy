@@ -6,7 +6,7 @@ label s02:
     jump .end
 
 label .intro:
-    scene fbg day
+    scene fbg day with dissolve
 
     $ renpy.pause(0.5)
     showd screen illustframe("travel") during 2.0
@@ -15,6 +15,7 @@ label .intro:
     shows glass_plate1_drawn at (160, 135)
     shows glass_plate2_drawn at (160, 135)
     shows glass_plate3_drawn at (160, 135)
+    play music stagecoach
     $ renpy.pause(2.0)
     "The next day, Josef was on a trip aboard a
     stage coach for the Eastern city. He left
@@ -25,6 +26,7 @@ label .intro:
     on a strange combination of glass plates.
     The thing was clearly not a toy, though, so
     Josef looked away."
+    pause 1.0
     "After half an hour, Josef really starting
     getting bored. There was still an hour of
     travel left and he had nothing else to do, so
@@ -33,8 +35,8 @@ label .intro:
     were facing, but was doing so layer by layer on
     different glass plates, giving a sense of
     depth to the picture."
-    "‘Interested?’ she asked. I call it volumetric
-    painting.
+    "‘Interested?’ she asked. ‘I call it volumetric
+    painting.’
     {p}‘It's the first time I see something like this.
     Is that a new trend?’
     {w=0.5}The woman laughed."
@@ -54,7 +56,11 @@ label .intro:
     they arrived."
     hides mc
     hides nadia
+    hides glass_plate1_drawn
+    hides glass_plate2_drawn
+    hides glass_plate3_drawn
     hided screen illustframe
+    stop music fadeout 2.0
     $ renpy.pause(2.0)
 
 label .end:

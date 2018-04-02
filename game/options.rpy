@@ -42,15 +42,11 @@ HyaKkiDouR4n, hsandt
 
 {b}Free assets{/b}
 
-{u}Graphics{/u}
-
-Pixabay (Frame)
-
 {u}Music{/u}
 
 Kevin MacLeod (incompetech.com)
 
-"Carpe Diem", "Thinking Music"
+"Carpe Diem", "Thinking Music", "Zazie"
 
 Licensed under Creative Commons: By Attribution 3.0
 
