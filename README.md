@@ -4,6 +4,10 @@ A Visual Novel for NaNoRenO 2018 made with Ren'Py
 
 # Copyright
 
+## Font
+
+itch.io banner title: DCC-Dreamer by dccanim (dccanim.deviantart.com)
+
 ## Pictures
 
 * 背景協力：ペタン　等 (Sky, unused)

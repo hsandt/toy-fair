@@ -38,9 +38,13 @@ hsandt
 
 {b}Graphics{/b}
 
-HyaKkiDouR4n, hsandt
+hsandt (all proto art), HyaKkiDouR4n (toy shop sketch)
 
 {b}Free assets{/b}
+
+{u}Font{/u}
+
+itch.io banner title: DCC-Dreamer by dccanim (dccanim.deviantart.com)
 
 {u}Music{/u}
 
