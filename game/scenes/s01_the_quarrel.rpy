@@ -70,7 +70,7 @@ label .welcome:
 
 label .disappointment:
     shows lady at () during 0.
-    "‘Interesting,’ she started, {w=0.5}‘but I expected something more... {w=0.5} contemporary.
+    "‘Interesting,’ the woman started, {w=0.5}‘but I expected something more... {w=0.5} contemporary.
     {w=0.5}Such as the Knight of the Thunder Blade.’"
     shows mc bust at () during 0.
     "‘I see. {w=0.5}Actually, there is a {b}Toy Fair{/b} in the {b}Eastern city{/b} tomorrow.
